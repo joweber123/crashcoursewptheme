@@ -23,3 +23,458 @@ Images License: GNU General Public License v2 or later
 /*
  * Add your own custom css below this text.
  */
+
+ /* 
+ * Color SCSS Variables Start
+*/
+
+ $font-sans: 'Roboto', sans-serif;
+ $font-serif: 'Roboto Slab', serif;
+ $green: #00872B;
+ $blue:#009FF2;
+ $yellow: #FFAB00;
+ $orange: #FF6F00;
+ $white: #FFF;
+ $black: black;
+
+ /* 
+ * Color SCSS Variables End
+*/
+
+body{
+    font-family: $font-sans;
+}
+.site-content{
+    background-color: #f6f6f6;
+}
+.site-header{
+    padding: 1em;
+    box-shadow: 2px 2px 3px 0px rgba(0,0,0,0.19);
+    border: none;
+}
+a:focus, button:focus, .button.alt:focus, input:focus, textarea:focus, input[type="button"]:focus, input[type="reset"]:focus, input[type="submit"]:focus, input[type="email"]:focus, input[type="tel"]:focus, input[type="url"]:focus, input[type="password"]:focus, input[type="search"]:focus{
+    outline-color: $white;
+}
+button.menu-toggle{
+    border-radius: 5px;
+}
+ /*
+ * Site Navigation Start
+ */
+ .home.page:not(.page-template-template-homepage) .site-header{
+     margin: 0;
+ }
+
+ .site-branding .site-title{
+     font-size: 1.5em;
+ }
+
+ .site-branding .site-title a{
+     font-weight: 400;
+ }
+
+.storefront-handheld-footer-bar{
+    width: 76px;
+    height: 76px;
+    right: 10px;
+    bottom: 10px;
+    left: unset;
+    border-radius: 50%;
+}
+.storefront-handheld-footer-bar .cart{
+    width: 76px;
+    height: 76px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.storefront-handheld-footer-bar .cart::before{
+    font-family: "Font Awesome 5 free";
+    content: "\f291";
+    display: inline-block;
+    font-family: 'Font Awesome 5 Free';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+    line-height: 2.618046972;
+    font-size: 1.618em;
+    cursor: pointer;
+}
+.storefront-handheld-footer-bar .count{
+    width: 2em;
+    height: 2em;
+    line-height: 2;
+    box-sizing: content-box;
+    font-size: 0.75em;
+    position: absolute;
+    top: 0.875em;
+    left: 50%;
+    border-radius: 100%;
+    border: 1px solid;  
+    background-color: #333333;
+    color: #ffffff;
+    border-color: #ffffff;
+    line-height: 24px;
+    text-align: center;
+}
+
+
+  /*
+ * Site Navigation End
+ */
+
+
+
+
+ /*
+ * Site Header Start
+ */
+
+ .col-full{
+    max-width: 1600px;
+    padding: 0;
+    margin: 0 auto;
+}
+
+.entry-header{
+    position: relative;
+}
+
+.header-container{
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.site-title{
+    font-size: 200px;
+    font-family: $font-serif;
+    color: white;
+    line-height: 1;
+}
+.entry-title{
+    background-color: $orange;
+    color: $white;
+    padding: 15px 5px;
+    font-size: 30px;
+    text-align: center;
+    margin: 0 60px;
+}
+
+.header-color-container{
+    position: absolute;
+    background-color: $green;
+    content: '';
+    height: 90%;
+    width: 90%;
+    left: 5%;
+    top: 5%;
+}
+
+.wp-post-image{
+    position: relative;
+    filter: opacity(70%);
+}
+
+.site-title{
+    font-size: 200px;
+    font-family: $font-serif;
+    color: white;
+    line-height: 1;
+}
+
+.header-site-title{
+    display: none; 
+}
+
+
+ /*
+ * Site Header End
+ */
+
+  /*
+ * Category Page Start
+ */
+ .tax-product_cat .products{
+     display: flex;
+     justify-content: space-between;
+     width: 100%;
+
+ }
+
+ .storefront-full-width-content .site-main ul.products.columns-4 li.product{
+     width: 48%;
+     margin-right: 0;
+ }
+
+ ul.products li.product h2{
+    font-size: 4rem;
+    color: $white;
+ }
+ .category-image-loop{
+    background-color: $blue;
+    opacity: 0.7;
+ }
+
+.category-product{
+    position: relative;
+}
+.category-product-title-container{
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+.category-product-title{
+
+}
+.category-product-color-container{
+    position: absolute;
+    background-color: $blue;
+    content: '';
+    height: 90%;
+    width: 90%;
+    left: 5%;
+    top: 5%;
+}
+.category-product-image-container{
+    position: relative;
+    filter: opacity(70%);
+    height: 400px;
+    background-size: cover;
+}
+ul.products::before, ul.products::after,
+.wc-block-grid__products::before,
+.wc-block-grid__products::after {
+  content: unset;
+  display: table; 
+}
+.woocommerce-loop-product__link, .woocommerce-loop-product__link .category-product-color-container{
+    transition: .2s ease-in-out;
+}
+.woocommerce-loop-product__link:hover{
+    background-color: blue;
+    transition: .1s ease-in-out;
+    box-shadow: 2px 2px 3px 3px rgba(0,0,0,0.2);
+    
+}
+.woocommerce-loop-product__link:hover .category-product-color-container{
+    border-radius: 45% 55% 15% 85% / 68% 30% 70% 32%; 
+    transition: .1s ease-in-out;
+}
+
+  /*
+ * Category Page End
+ */
+
+
+  /*
+ * Media Queries
+ */
+
+
+// Small tablets and large smartphones (landscape view)
+$screen-small: 450px;
+
+// Small tablets (portrait view)
+$screen-medium: 768px;
+
+// Tablets and small desktops
+$screen-large: 992px;
+
+// Large tablets and desktops
+$screen-xl: 1400px;
+
+@media only screen and (min-width: $screen-small) {
+    .entry-title{
+        padding: 15px 30px;
+        margin: 0;
+        font-size: 40px;
+    }
+}
+@media only screen and (min-width: 361px) {
+    .site-branding{
+        padding-top: 8px;
+    }
+}
+
+@media only screen and (min-width: $screen-medium) {
+
+ /*
+ * Site Navigation
+ */
+
+.current_page_item .site-header ul.menu li.current-menu-item a{
+    color: $white;
+}
+
+.site-header-cart .widget_shopping_cart .woocommerce-mini-cart__empty-message{
+    margin: 1em;
+}
+
+.site-branding .site-title{
+    display: none;
+    margin-bottom: 0;
+}
+.site-branding{
+    margin-bottom: 0;
+}
+
+.main-navigation ul.menu > li > a, .main-navigation ul.nav-menu > li > a{
+    padding: 1em;
+}
+.site-header-cart .cart-contents{
+    padding: 1em;
+}
+
+.site-header-cart .cart-contents::after{
+    line-height: 1;
+}
+
+.site-header{
+    padding: 0;
+    line-height: 1;
+    height: 50px;
+    position: fixed;
+    width: 100%;    
+
+}
+.site-header-inner-container{
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+ .home.page:not(.page-template-template-homepage) .site-header{
+    margin: 0;
+ }
+
+ .woocommerce-active .site-header .site-branding{
+     display: inline;
+     width: unset;
+ }
+
+ .woocommerce-active .site-header .main-navigation{
+     display: inline;
+     width: unset;
+     margin-left: 5%;
+ }
+
+ .site-content{
+     margin-top: 50px;
+ }
+
+ .woocommerce-active .site-header .site-header-cart{
+     width: 150px;
+     margin-right: 5%;
+ }
+
+ /*
+ * Site Header Start
+ */
+    .header-site-title{
+        font-size: 90px;
+        font-family: $font-serif;
+        color: white;
+        line-height: 1;
+        display: block;
+    }
+    .entry-title{
+        text-align: left;
+        padding: 15px 30px;
+        margin: 10px 0;
+        font-size: 30px;
+    }
+    .header-container{
+        position: absolute;
+        margin: 10%;
+        z-index: 1;
+        display: block;
+        width: auto;
+        height: auto;
+    }
+
+ /*
+ * Site Header End
+ */
+
+   /*
+ * Product Page Start
+ */
+
+ .storefront-full-width-content.single-product div.product .summary{
+    display: flex;
+    flex-direction: row-reverse;
+    width: 100%;
+  }
+  
+  .entry-wrapper-container, .booking-form-container{
+   width: 50%;
+  }
+
+  
+  .product .entry-title{
+    background-color: unset;
+    color: $black;
+  }
+
+  .storefront-full-width-content .woocommerce-tabs .panel{
+      width: 100%;
+  }
+
+  .storefront-full-width-content .woocommerce-tabs ul.tabs{
+      width: 100%;
+      display: flex;
+  }
+
+  .woocommerce-tabs ul.tabs li::after{
+      display: none;
+  }
+#review_form_wrapper{
+    display: none;
+}
+.storefront-breadcrumb{
+    display: none;
+}
+.wc-bookings-booking-form fieldset{
+    background-color: transparent;
+}
+    /*
+   * Product Page End
+   */
+
+    
+}
+@media only screen and (min-width: $screen-large) {
+    .header-site-title{
+        font-size: 130px;
+    }
+    .entry-title{
+        font-size: 35px;
+    }
+    .entry-wrapper-container{
+        padding-right: 30px;
+    }
+    .booking-form-container{
+        padding-left: 30px;
+    }
+}
+@media only screen and (min-width: $screen-xl) {
+    .header-site-title{
+        font-size: 200px;
+    }
+    .entry-title{
+        font-size: 40px;
+    }
+}
+
