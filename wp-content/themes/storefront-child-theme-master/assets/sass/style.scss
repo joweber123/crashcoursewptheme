@@ -36,6 +36,9 @@ Images License: GNU General Public License v2 or later
  $orange: #FF6F00;
  $white: #FFF;
  $black: black;
+ $grey: #6d6d6d;
+ $lightgrey: #E0E0E0;
+ $button-shadow: 2px 2px 3px 0px rgba(0,0,0,0.19);
 
  /* 
  * Color SCSS Variables End
@@ -43,6 +46,12 @@ Images License: GNU General Public License v2 or later
 
 body{
     font-family: $font-sans;
+}
+a{
+    color: $grey;
+}
+a:focus{
+    outline-color: transparent!important;
 }
 .site-content{
     background-color: #f6f6f6;
@@ -58,6 +67,8 @@ a:focus, button:focus, .button.alt:focus, input:focus, textarea:focus, input[typ
 button.menu-toggle{
     border-radius: 5px;
 }
+
+
  /*
  * Site Navigation Start
  */
@@ -278,6 +289,243 @@ ul.products::before, ul.products::after,
  * Category Page End
  */
 
+ //Bookings Calendar
+
+/* 
+   Modify the color styles of the WooCommerce Bookings datepicker calendar.
+   Add any/all of these styles to your theme's custom CSS, but be sure to change
+   the color hex codes to your choice. They're all black here.
+*/
+
+/* Month header background color */
+#wc-bookings-booking-form .wc-bookings-date-picker .ui-datepicker-header {
+	background-color: $white;
+}
+
+/* Previous/Next month arrow background color */
+#wc-bookings-booking-form .wc-bookings-date-picker .ui-datepicker .ui-datepicker-next, 
+#wc-bookings-booking-form .wc-bookings-date-picker .ui-datepicker .ui-datepicker-prev {
+	background-color: $white;
+}
+
+/* Previous/Next month arrows if not allowed, and calendar dates that are not available */
+.ui-state-disabled, 
+.ui-widget-content .ui-state-disabled, 
+.ui-widget-header .ui-state-disabled {
+	opacity: 0.35;
+}
+
+/* Days of the week header background color */
+.ui-datepicker-calendar thead {
+	background-color: $black;
+}
+
+/* Days of the week header font color */
+#wc-bookings-booking-form .wc-bookings-date-picker .ui-datepicker th {
+	color: $black;
+}
+
+/* Past calendar days background color (not available) */
+.ui-datepicker-calendar tbody {
+	background-color: $white;
+}
+
+/* Available calendar days background color */
+.ui-datepicker table{
+    border-collapse: separate;
+}
+#wc-bookings-booking-form .wc-bookings-date-picker .ui-datepicker td.bookable:nth-child(1) a {
+    border-radius: 20px 0 0 20px;
+}
+
+#wc-bookings-booking-form .wc-bookings-date-picker .ui-datepicker td{
+    border: 1px solid transparent!important;
+    border-top: 1px solid darken($lightgrey, 5%)!important;
+    border-collapse: separate;
+}
+#wc-bookings-booking-form .wc-bookings-date-picker .ui-datepicker td.bookable:hover{
+    
+    background-color: $white!important;
+}
+
+
+#wc-bookings-booking-form .wc-bookings-date-picker .ui-datepicker td.bookable a {
+    background-color: transparent !important;
+}
+
+#wc-bookings-booking-form .wc-bookings-date-picker .ui-datepicker td.bookable {
+    position: relative;
+    background-color: $lightgrey;
+}
+
+#wc-bookings-booking-form .wc-bookings-date-picker .ui-datepicker td.bookable::before {
+    content: '';
+    width: 0;
+    height: 0;
+    border-top: 10px solid $blue;
+    border-left: 10px solid transparent;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transition: .1s ease-in-out;
+}
+
+
+#wc-bookings-booking-form .wc-bookings-date-picker .ui-datepicker td.bookable:hover::before{
+    border-top: 20px solid $blue;
+    border-left: 20px solid transparent;
+    transition: .1s ease-in-out;
+}
+.wc-bookings-date-picker .ui-datepicker td.bookable a{
+    border-color: transparent!important;
+}
+
+/* Today */
+#wc-bookings-booking-form .wc-bookings-date-picker .ui-datepicker td.ui-datepicker-today span{
+    box-shadow: none!important;
+}
+#wc-bookings-booking-form .wc-bookings-date-picker .ui-datepicker tr{
+    margin: 5px 0;
+}
+
+/* Available calendar day hover background color */
+#wc-bookings-booking-form .wc-bookings-date-picker .ui-datepicker td.bookable a:hover {
+	background-color: $white !important;
+}
+
+/* Fully booked calendar days */
+.wc-bookings-date-picker .ui-datepicker td.fully_booked a, 
+.wc-bookings-date-picker .ui-datepicker td.fully_booked span {
+	background-color: $white !important;
+}
+
+/* Days not bookable based on the availability rules */
+.wc-bookings-date-picker .ui-datepicker td.not_bookable {
+	background-color: $white !important;
+}
+
+/* Today's date on calendar background color */ 
+#wc-bookings-booking-form .wc-bookings-date-picker .ui-datepicker td.ui-datepicker-today a { 
+	background-color: $white !important; 
+}
+#wc-bookings-booking-form .wc-bookings-date-picker .ui-datepicker td.ui-datepicker-current-day { 
+	position: relative;
+}
+#wc-bookings-booking-form .wc-bookings-date-picker .ui-datepicker td.ui-datepicker-current-day::before {
+    content: '';
+    width: 0;
+    height: 0;
+    border-top: 30px solid $orange;
+    border-left: 30px solid transparent;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transition: .1s ease-in-out;
+}
+
+#wc-bookings-booking-form .wc-bookings-date-picker .ui-datepicker td.ui-datepicker-current-day{
+    border-top: 1px solid $lightgrey!important;
+    border-collapse: separate;
+}
+
+.wc-bookings-date-picker .ui-datepicker td.bookable-range .ui-state-default{
+    color: $black;
+}
+
+/* Time Blocks */
+#wc-bookings-booking-form .block-picker li a {
+	background-color: $white !important;
+}
+
+/* Time Blocks Hover */
+#wc-bookings-booking-form .block-picker li a:hover {
+	background-color: $lightgrey !important;
+}
+
+.wc-bookings-booking-form .block-picker li a:hover{
+    color: $black!important;
+}
+
+/* Selected Date*/ 
+#wc-bookings-booking-form .wc-bookings-date-picker .ui-datepicker td.ui-datepicker-current-day a {
+    background-color: $white !important; 
+    
+} 
+
+/* Selected Time Block */ 
+#wc-bookings-booking-form .block-picker li a { 
+    background: $lightgrey !important; 
+    color: $black!important;
+    position: relative;
+}
+
+#wc-bookings-booking-form .block-picker li a:hover::after { 
+    content: '';
+    width: 0;
+    height: 0;
+    border-top: 10px solid $blue;
+    border-left: 10px solid transparent;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transition: .1s ease-in-out;
+}
+
+#wc-bookings-booking-form .block-picker li a.selected:after { 
+    content: '';
+    width: 0;
+    height: 0;
+    border-top: 20px solid $orange;
+    border-left: 20px solid transparent;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transition: .1s ease-in-out;
+}
+
+
+
+/* Calendar Numbers */
+.wc-bookings-date-picker .ui-datepicker td.bookable a{
+    color: $black!important;
+}
+/* Calendar Month Title */
+.wc-bookings-date-picker .ui-datepicker-header{
+    color: $black!important;
+}
+
+
+
+.wc-bookings-booking-form .form-field{
+    margin: 1em;
+    background-color: $white;
+    padding: 1em 0;
+}
+
+.wc-bookings-booking-form-button{
+    margin-left: 1em;
+}
+.wc-bookings-booking-form fieldset{
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+.wc-bookings-booking-form .block-picker{
+    padding-left: 1em;
+}
+#wc-bookings-booking-form .wc-bookings-booking-cost{
+    margin: 0 1em!important;
+    background-color: $white;
+}
+.button.disabled{
+    background-color:$lightgrey!important;
+}
+.button.alt{
+    background-color: $orange;
+}
+.button.alt:hover{
+    background-color: darken($orange, 5%);
+    box-shadow: $button-shadow;
+}
 
   /*
  * Media Queries
@@ -420,26 +668,57 @@ $screen-xl: 1400px;
   
   .entry-wrapper-container, .booking-form-container{
    width: 50%;
+   padding-left: 1em;
   }
 
   
   .product .entry-title{
     background-color: unset;
     color: $black;
+    padding: 15px 0;
+  }
+  .single-product div.product p.price{
+      margin: 1em 0;
+  }
+  .woocommerce-tabs{
+      padding: 0;
+  }
+  .woocommerce-tabs ul.tabs li{
+      border-bottom: none;
+      padding: 1em 1em .5em 1em;
+  }
+  .woocommerce-tabs ul.tabs li a{
+      padding: 0;
+      color: $grey;
   }
 
-  .storefront-full-width-content .woocommerce-tabs .panel{
-      width: 100%;
-  }
+.woocommerce-tabs ul.tabs li.active{
+    background-color: $white;
+    border-top: 2px solid $blue;
+}
 
-  .storefront-full-width-content .woocommerce-tabs ul.tabs{
-      width: 100%;
-      display: flex;
+.woocommerce-Tabs-panel{
+    background-color: $white;
+    padding: .5em 1em 1em 1em;
+}
+  .woocommerce-tabs ul.tabs{
+      border-top: none;
+      margin-bottom: 0;
   }
+  
 
-  .woocommerce-tabs ul.tabs li::after{
-      display: none;
-  }
+.storefront-full-width-content .woocommerce-tabs .panel{
+    width: 100%;
+}
+
+.storefront-full-width-content .woocommerce-tabs ul.tabs{
+    width: 100%;
+    display: flex;
+}
+
+.woocommerce-tabs ul.tabs li::after{
+    display: none;
+}
 #review_form_wrapper{
     display: none;
 }
@@ -448,6 +727,10 @@ $screen-xl: 1400px;
 }
 .wc-bookings-booking-form fieldset{
     background-color: transparent;
+}
+
+.storefront-full-width-content.single-product #reviews .commentlist li .comment_container .comment-text{
+    width: 100%;
 }
     /*
    * Product Page End

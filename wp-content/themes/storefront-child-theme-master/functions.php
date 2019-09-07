@@ -249,7 +249,7 @@ function woo_new_product_tab_content() {
     global $post;
     global $authordata;
     $link = sprintf(
-        ' <a href="%1$s" title="%2$s" rel="author">Read More</a>',
+        ' <a href="%1$s" title="%2$s" rel="author">Read More...</a>',
         esc_url( get_author_posts_url( $authordata->ID, $authordata->user_nicename ) ),
         /* translators: %s: author's display name */
         esc_attr( sprintf( __( 'Posts by %s' ), get_the_author() ) ),
@@ -259,8 +259,8 @@ function woo_new_product_tab_content() {
     $profile = get_the_author_meta( 'crash_course_profile', $post->post_author );
     
     // The new tab content
-    echo '<h3> Your Teacher: ';
-    echo the_author_meta('first_name').'</h3>';
+    echo '<h2> Your Teacher: ';
+    echo the_author_meta('first_name').'</h2>';
     echo '<p> '. wp_trim_words($profile, 50).' </p>';
     echo $link;
   }

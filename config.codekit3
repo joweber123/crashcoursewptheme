@@ -42837,6 +42837,14 @@
 		"oF": 0,
 		"oS": 3
 		},
+	"/wp-content/themes/storefront-child-theme-master/woocommerce-bookings/booking-form/datetime-picker.php": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/wp-content/themes/storefront-child-theme-master/woocommerce-bookings/booking-form/datetime-picker.php",
+		"oF": 0
+		},
 	"/wp-content/themes/storefront-child-theme-master/woocommerce-bookings/single-product/add-to-cart/booking.php": {
 		"cB": 0,
 		"ft": 8192,
@@ -44531,6 +44539,17 @@
 		"oT": 1,
 		"q": 100
 		},
+	"/wp-content/uploads/2019/08/home_page-324x216.png": {
+		"ft": 32768,
+		"iS": 73714,
+		"oA": 0,
+		"oAP": "/wp-content/uploads/2019/08/home_page-324x216.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
 	"/wp-content/uploads/2019/08/home_page-324x324.png": {
 		"ft": 32768,
 		"iS": 110234,
@@ -44657,6 +44676,28 @@
 		"iS": 42419,
 		"oA": 0,
 		"oAP": "/wp-content/uploads/2019/08/japan_map_2-300x188.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"/wp-content/uploads/2019/08/japan_map_2-324x203.jpg": {
+		"ft": 16384,
+		"iS": 11095,
+		"jF": 0,
+		"oA": 0,
+		"oAP": "/wp-content/uploads/2019/08/japan_map_2-324x203.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"/wp-content/uploads/2019/08/japan_map_2-324x203.png": {
+		"ft": 32768,
+		"iS": 48905,
+		"oA": 0,
+		"oAP": "/wp-content/uploads/2019/08/japan_map_2-324x203.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
@@ -44790,6 +44831,17 @@
 		"oA": 1,
 		"oAP": "/wp-content/uploads/2019/08/rice_field_black_white-300x200.png",
 		"oF": 1,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"/wp-content/uploads/2019/08/rice_field_black_white-324x216.png": {
+		"ft": 32768,
+		"iS": 84106,
+		"oA": 0,
+		"oAP": "/wp-content/uploads/2019/08/rice_field_black_white-324x216.png",
+		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"oT": 1,
@@ -45022,6 +45074,14 @@
 		"oA": 1,
 		"oAP": "/wp-content/uploads/wc-logs/wc-image-regeneration-2019-08-24-5ff34f7e9b18eb6c0ddd6d1da9d3f2f7.log",
 		"oF": 1
+		},
+	"/wp-content/uploads/wc-logs/wc-image-regeneration-2019-09-07-5ff34f7e9b18eb6c0ddd6d1da9d3f2f7.log": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/wp-content/uploads/wc-logs/wc-image-regeneration-2019-09-07-5ff34f7e9b18eb6c0ddd6d1da9d3f2f7.log",
+		"oF": 0
 		},
 	"/wp-content/uploads/wc-logs/woocommerce-gateway-stripe-2019-08-31-fa88934a9cb55a9b01620f82240cc0de.log": {
 		"cB": 0,
