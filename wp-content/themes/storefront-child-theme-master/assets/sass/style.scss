@@ -68,33 +68,129 @@ button.menu-toggle{
     border-radius: 5px;
 }
 
+.woocommerce-message{
+    background-color: $green;
+}
+.cat-links a, .tags-links a{
+    text-decoration: none;
+}
+
+.storefront-align-wide.storefront-full-width-content .hentry .entry-content .alignwide{
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.site-main{
+    margin: 0;
+}
+h2 + h3{
+    border-top:none;
+}
+.entry-content{
+    background-color: $white;
+    padding: 0 1em;
+}
+.post-link-container{
+    margin: 0 1em;
+}
+.post{
+    margin: 0 1em;
+}
+.post-link-container .post{
+    margin: 0;
+}
+.post-link-container .entry-content{
+    padding: 0;
+}
+.post-link-container img{
+padding-bottom: 1em;
+height: 250px;
+}
+.blog .post-link-container .entry-header{
+    margin: 0px;
+}
+
+
+h2, .entry-content figure.wp-block-image.page_separator{
+    padding-top: 50px;
+}
+
+h2{
+    padding-bottom: 1em;
+}
+
+.product{
+    background-color: $white;
+}
+
+.single-product div.product{
+    padding: 0 1em;
+}
+.post .entry-title{
+    background-color: $white;
+    margin-bottom: 0;
+    color: $black;
+    text-align: center;
+    margin: 0;
+    padding: 30px 0 5px 0;
+}
+.single-post .hentry .entry-header{
+    margin-bottom: 0;
+}
+.hentry .entry-content .wp-block-image figure{
+    margin-bottom: 30px;
+}
+#reply-title{
+    text-align: center;
+    font-weight: 300;
+}
+.cat-links a{
+    font-weight: 300;
+}
 
  /*
  * Site Navigation Start
  */
+ .storefront-breadcrumb{
+     margin: 0 0 0 1em;
+ }
+ .woocommerce-page .storefront-breadcrumb a:nth-of-type(2){
+    display: none;
+ }
+ .woocommerce-page .storefront-breadcrumb span:nth-of-type(1){
+    display: none;
+ }
  .home.page:not(.page-template-template-homepage) .site-header{
      margin: 0;
  }
 
  .site-branding .site-title{
-     font-size: 1.5em;
+     font-size: 1em;
+     padding-top: 14px;
  }
 
  .site-branding .site-title a{
      font-weight: 400;
+     border-top: 5px $yellow solid;
+     border-right: 5px $orange solid;
+     border-bottom: 5px $blue solid;
+     border-left: 5px $green solid;
+     padding: .5em .3em;
+     border-radius: 10px;
+
  }
 
 .storefront-handheld-footer-bar{
-    width: 76px;
-    height: 76px;
+    width: 60px;
+    height: 60px;
     right: 10px;
     bottom: 10px;
     left: unset;
     border-radius: 50%;
 }
 .storefront-handheld-footer-bar .cart{
-    width: 76px;
-    height: 76px;
+    width: 60px;
+    height: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -111,25 +207,23 @@ button.menu-toggle{
     right: 0;
     bottom: 0;
     text-align: center;
-    line-height: 2.618046972;
-    font-size: 1.618em;
+    line-height: 3;
+    font-size: 1.2em;
     cursor: pointer;
 }
 .storefront-handheld-footer-bar .count{
-    width: 2em;
-    height: 2em;
-    line-height: 2;
+    width: 1.8em;
+    height: 1.8em;
     box-sizing: content-box;
-    font-size: 0.75em;
+    font-size: 0.7em;
     position: absolute;
-    top: 0.875em;
-    left: 50%;
+    top: 0.7em;
+    left: 52%;
     border-radius: 100%;
-    border: 1px solid;  
-    background-color: #333333;
+    background-color: $blue;
     color: #ffffff;
     border-color: #ffffff;
-    line-height: 24px;
+    line-height: 20px;
     text-align: center;
 }
 
@@ -138,9 +232,51 @@ button.menu-toggle{
  * Site Navigation End
  */
 
+ /*
+Mobile Menu
+ */
+.menu-toggle, .site-branding .site-title{
+    z-index: 101;
+}
+.site-branding .site-title{
+    position: relative;
+}
+.main-navigation .handheld-navigation ul,  .main-navigation .handheld-navigation{
+    top: -100vh;
+ }
 
+ .main-navigation .handheld-navigation{
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: $white;
+    z-index: 100;
+    height: 100vh;
+ }
+ .main-navigation .handheld-navigation ul{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: max-height .2s ease-in-out;
+ }
+ .main-navigation.toggled .handheld-navigation{
+    top: 0;
+ }
 
+ .handheld-navigation, .main-navigation.toggled .handheld-navigation{
+     max-height: unset;
+ }
 
+ .home.menu-item{
+    display: none;
+}
+
+ul.menu li a{
+    font-size: 2em;
+}
  /*
  * Site Header Start
  */
@@ -171,14 +307,32 @@ button.menu-toggle{
     color: white;
     line-height: 1;
 }
+.home .entry-title{
+    background-color: $orange;
+    color: $white;
+    padding: 15px 30px;
+    font-size: 30px;
+    text-align: center; 
+    font-weight: 300;
+}
 .entry-title{
     background-color: $orange;
     color: $white;
-    padding: 15px 5px;
+    padding: 15px 30px;
+    font-size: 30px;
+    text-align: center;
+    margin: 0;
+}
+.header-entry-title{
+    font-family: $font-serif;
+    background-color: $orange;
+    color: $white;
+    padding: 15px 30px;
     font-size: 30px;
     text-align: center;
     margin: 0 60px;
 }
+
 
 .header-color-container{
     position: absolute;
@@ -193,7 +347,15 @@ button.menu-toggle{
 .wp-post-image{
     position: relative;
     filter: opacity(70%);
+    height: 400px;
+    object-fit: cover;
+    width: 100%;
 }
+.home .wp-post-image{
+    height: auto;
+}
+
+
 
 .site-title{
     font-size: 200px;
@@ -206,7 +368,9 @@ button.menu-toggle{
     display: none; 
 }
 
-
+.hentry .wp-post-image{
+    margin-bottom: 0;
+}
  /*
  * Site Header End
  */
@@ -215,16 +379,22 @@ button.menu-toggle{
  * Category Page Start
  */
  .tax-product_cat .products{
-     display: flex;
-     justify-content: space-between;
+     display: inline-block;
      width: 100%;
 
  }
 
  .storefront-full-width-content .site-main ul.products.columns-4 li.product{
-     width: 48%;
+     width: 49%;
      margin-right: 0;
  }
+ .storefront-full-width-content .site-main ul.products.columns-4 li.product:nth-child(even){
+    margin-left: 2%;
+}
+ul.products li.product{
+    margin-right: 1em;
+    margin-left: 1em;
+}
 
  ul.products li.product h2{
     font-size: 4rem;
@@ -297,6 +467,20 @@ ul.products::before, ul.products::after,
    the color hex codes to your choice. They're all black here.
 */
 
+.wc-bookings-date-picker{
+    padding: 0;
+}
+.wc-bookings-booking-form fieldset .picker.hasDatepicker{
+    margin-bottom: 0;
+}
+.wc-bookings-booking-form .form-field{
+    margin: 1em 0;
+    background-color: $white;
+    padding: 1em 0;
+}
+.wc-bookings-date-picker-timezone-block{
+    margin-top: 1em;
+}
 /* Month header background color */
 #wc-bookings-booking-form .wc-bookings-date-picker .ui-datepicker-header {
 	background-color: $white;
@@ -368,6 +552,7 @@ ul.products::before, ul.products::after,
     top: 0;
     right: 0;
     transition: .1s ease-in-out;
+    z-index: 10;
 }
 
 
@@ -415,12 +600,13 @@ ul.products::before, ul.products::after,
     content: '';
     width: 0;
     height: 0;
-    border-top: 30px solid $orange;
-    border-left: 30px solid transparent;
+    border-top: 20px solid $orange;
+    border-left: 20px solid transparent;
     position: absolute;
     top: 0;
     right: 0;
     transition: .1s ease-in-out;
+    z-index: 10;
 }
 
 #wc-bookings-booking-form .wc-bookings-date-picker .ui-datepicker td.ui-datepicker-current-day{
@@ -431,7 +617,9 @@ ul.products::before, ul.products::after,
 .wc-bookings-date-picker .ui-datepicker td.bookable-range .ui-state-default{
     color: $black;
 }
-
+.wc-bookings-date-picker .ui-datepicker td.partial_booked a{
+    color: $black!important;
+}
 /* Time Blocks */
 #wc-bookings-booking-form .block-picker li a {
 	background-color: $white !important;
@@ -481,6 +669,7 @@ ul.products::before, ul.products::after,
     top: 0;
     right: 0;
     transition: .1s ease-in-out;
+    z-index: 10;
 }
 
 
@@ -496,15 +685,8 @@ ul.products::before, ul.products::after,
 
 
 
-.wc-bookings-booking-form .form-field{
-    margin: 1em;
-    background-color: $white;
-    padding: 1em 0;
-}
 
-.wc-bookings-booking-form-button{
-    margin-left: 1em;
-}
+
 .wc-bookings-booking-form fieldset{
     margin-bottom: 0;
     padding-bottom: 0;
@@ -513,7 +695,6 @@ ul.products::before, ul.products::after,
     padding-left: 1em;
 }
 #wc-bookings-booking-form .wc-bookings-booking-cost{
-    margin: 0 1em!important;
     background-color: $white;
 }
 .button.disabled{
@@ -526,8 +707,243 @@ ul.products::before, ul.products::after,
     background-color: darken($orange, 5%);
     box-shadow: $button-shadow;
 }
+.wc-bookings-booking-form-button{
+    width: 100%;
+    font-size: 1.3em;
+}
 
-  /*
+#tab-description h2, #tab-reviews h2{
+    display: none;
+}
+.woocommerce-tabs ul.tabs li.active a{
+    color: #333333;
+    font-size: 1.2em;
+}
+.woocommerce-tabs ul.tabs li.active{
+    padding-top: .6em;
+}
+
+
+
+// Cart
+.woocommerce-cart-form{
+    max-width: 66.4989378333em;
+    margin: 0 auto;
+}
+
+.cart-collaterals .cart_totals, .cart-collaterals .shipping_calculator{
+    max-width: 66.4989378333em;
+    margin: 0 auto;
+    width: 100%;
+    float: none;
+    background-color: $white;
+}
+
+.cart-collaterals table:not(.has-background) th, table:not(.has-background) tbody tr:nth-child(2n) td{
+    background-color: $white;
+}
+.cart-collaterals h2{
+    padding: 1em 0 0 1em;
+}
+
+// Checkout 
+form.woocommerce-checkout{
+    max-width: 66.4989378333em;
+    margin: 0 auto;
+}
+#customer_details{
+    background-color: $white;
+    padding: 1em;
+}
+#woocommerce-checkout-review-order-table{
+    background-color: $white;
+    padding: 1em;
+}
+#order_review_heading{
+    background-color: $white;
+}
+table:not(.has-background) th{
+    background-color: $white;
+}
+#payment .payment_methods{
+    padding: 0 1em!important;
+}
+#order_review_heading{
+    padding: 1em 0 0 1em;
+}
+
+//Woo Single Product Page
+.single-product .entry-title{
+    display: none;
+}
+.storefront-full-width-content .woocommerce-tabs ul.tabs{
+    width: 100%;
+    display: flex;
+}
+
+.woocommerce-tabs ul.tabs li::after{
+    display: none;
+}
+.woocommerce-tabs{
+    padding: 0;
+}
+.woocommerce-tabs ul.tabs li{
+    border-bottom: none;
+    padding: 1em 1em .5em 1em;
+}
+.woocommerce-tabs ul.tabs li a{
+    padding: 0;
+    color: $grey;
+}
+
+.woocommerce-tabs ul.tabs li.active{
+    background-color: $white;
+    border-top: 2px solid $blue;
+}
+
+.woocommerce-Tabs-panel{
+    background-color: $white;
+    padding: .5em 1em 1em 1em;
+}
+.woocommerce-tabs ul.tabs{
+    border-top: none;
+    margin-bottom: 0;
+}
+
+.storefront-full-width-content .woocommerce-tabs .panel{
+    width: 100%;
+}
+
+.single-product .entry-summary {
+    display: flex;
+    flex-direction: column-reverse;
+}
+.wc-bookings-date-picker .ui-icon-circle-triangle-e, .wc-bookings-date-picker .ui-icon-circle-triangle-w{
+    background-image: url("images/ui-icons_222222_256x240.png");
+}
+.related{
+    padding-top: 60px;
+    text-align: center;
+}
+
+
+//Author Page
+.author-header-container{
+    display: flex;
+    margin-top: 1em;
+    background-color: $white;
+    padding: 1em;
+}
+.teacher-name-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+}
+
+.author-video-container{
+    width: 50%;
+}
+video#author-page-video{
+    width: 100%; 
+    height: auto;
+}
+.author .post-link-container, .blog .post-link-container{
+
+    float: left;
+    background-color: $white;
+    padding: 1em;
+}
+
+
+.post-link-container{
+    content: "";
+    margin-top: 1em;
+}
+
+
+.blog .content-area{
+    margin-top: 0
+}
+.blog .hentry{
+    margin-bottom: 1em;
+}
+.blog .entry-title, .author .entry-title{
+    background-color: transparent;
+    padding: 0 0 15px 0;
+    color: $grey;
+}
+.blog .entry-header .posted-on, .blog .entry-header .post-comments, .blog .entry-header .post-author{
+    display: none;
+}
+.hentry .entry-header{
+    margin-bottom: 2em;
+}
+.storefront-full-width-content .woocommerce-products-header{
+    padding: 0;
+    margin: 0 0 50px;
+}
+
+.author .hentry{
+    margin: 0;
+}
+
+//////// Single Post Pages /////////////////////////
+.post_page_separator img{
+    max-width: 200px;
+}
+.single-post .wp-post-image{
+    filter: none;
+    height: auto;
+    object-fit: cover;
+    width: 100%;
+}
+.single-post .hentry .wp-post-image{
+    margin-bottom: 0;
+}
+.single-post #respond{
+    padding: 1em;
+    background-color: $white;
+}
+
+.single-post .hentry .entry-header{
+    border-bottom: none;
+}
+.single-post .site-main nav.navigation{
+    padding: 1em 0;
+}
+
+.single-post .entry-content, .single-post .edit-link, .single-post .entry-taxonomy{
+    background-color: $white;
+    padding: 0 1em 1em 1em;
+}
+.single-post .hentry .entry-taxonomy{
+    margin: 0;
+    border-top: none;
+}
+
+.single-post #comments{
+    padding-top: 0;
+}
+.single-post .site-main nav.navigation .nav-next{
+    padding-right: 1em;
+}
+.single-post .site-main nav.navigation .nav-previous{
+    padding-left: 1em;
+}
+#review_form_wrapper{
+    display: none;
+}
+.storefront-full-width-content.single-product #reviews .commentlist li .comment_container .comment-text{
+    width: 100%;
+}
+.single-product div.product form.cart {
+    margin: 0;
+    border: 1px solid $grey;
+    border-radius: 10px;
+}
+
+/*
  * Media Queries
  */
 
@@ -536,13 +952,13 @@ ul.products::before, ul.products::after,
 $screen-small: 450px;
 
 // Small tablets (portrait view)
-$screen-medium: 768px;
+$screen-medium: 608px;
 
 // Tablets and small desktops
-$screen-large: 992px;
+$screen-large: 1000px;
 
 // Large tablets and desktops
-$screen-xl: 1400px;
+$screen-xl: 1600px;
 
 @media only screen and (min-width: $screen-small) {
     .entry-title{
@@ -550,19 +966,57 @@ $screen-xl: 1400px;
         margin: 0;
         font-size: 40px;
     }
+    .home .entry-title{
+        padding: 15px 30px;
+    }
+    .site-branding .site-title a{
+        padding: .5em 1em;
+    }
 }
 @media only screen and (min-width: 361px) {
     .site-branding{
-        padding-top: 8px;
+        padding-top: 0;
     }
 }
+
 
 @media only screen and (min-width: $screen-medium) {
 
  /*
  * Site Navigation
  */
-
+ .single-post .site-main nav.navigation{
+    max-width: $screen-medium;
+    margin: 0 auto;
+   
+ }
+ .entry-taxonomy .cat-links{
+     max-width: $screen-medium;
+    margin: 0 auto;
+ }
+ .blog .post-link-container{
+     width: 100%;
+     float: left;
+ }
+ .blog .post-link-container:nth-child(odd){
+    margin-left: .5%;
+}
+.blog .post-link-container:nth-child(even){
+    margin-right: .5%;
+}
+ ul.products li.product{
+    margin-right: 0;
+    margin-left: 0;
+}
+ .site-main{
+    margin: 0 1em;
+}
+.post-link-container{
+    margin: 1em 0 0 0;
+}
+ .site-branding{
+    padding-top: 0;
+}
 .current_page_item .site-header ul.menu li.current-menu-item a{
     color: $white;
 }
@@ -578,12 +1032,42 @@ $screen-xl: 1400px;
 .site-branding{
     margin-bottom: 0;
 }
+.main-navigation .menu-item-home a{
+    border-top: 5px $yellow solid;
+    border-right: 5px $orange solid;
+    border-bottom: 5px $blue solid;
+    border-left: 5px $green solid;
+    border-radius: 10px;
+    font-family: "Roboto Slab", serif;
+}
+
+.site-header ul.menu li.current-menu-item > a{
+    color: $black;
+}
+.home.menu-item{
+    display: inline-block;
+}
+ul.menu li a{
+    font-size: 1em;
+}
+/*
+.menu-item.courses{
+    position: relative;
+}
+.menu-item.courses:after{
+    content: url(http://jamess-macbook-pro-2.local:5757/crashcourse/wp-content/uploads/2019/10/course-highlight.jpg);
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 50%;
+}
+*/
 
 .main-navigation ul.menu > li > a, .main-navigation ul.nav-menu > li > a{
-    padding: 1em;
+    padding:.7em 1em;
 }
 .site-header-cart .cart-contents{
-    padding: 1em;
+    padding: 1.5em 1em 1em 1em;
 }
 
 .site-header-cart .cart-contents::after{
@@ -593,7 +1077,7 @@ $screen-xl: 1400px;
 .site-header{
     padding: 0;
     line-height: 1;
-    height: 50px;
+    height: 64px;
     position: fixed;
     width: 100%;    
 
@@ -615,11 +1099,12 @@ $screen-xl: 1400px;
  .woocommerce-active .site-header .main-navigation{
      display: inline;
      width: unset;
-     margin-left: 5%;
+     margin-left: 6%;
+     padding-top: 7px;
  }
 
  .site-content{
-     margin-top: 50px;
+     margin-top: 64px;
  }
 
  .woocommerce-active .site-header .site-header-cart{
@@ -636,6 +1121,7 @@ $screen-xl: 1400px;
         color: white;
         line-height: 1;
         display: block;
+        text-align: left;
     }
     .entry-title{
         text-align: left;
@@ -643,32 +1129,88 @@ $screen-xl: 1400px;
         margin: 10px 0;
         font-size: 30px;
     }
+    .home .entry-title{
+        text-align: left;
+        padding: 15px 30px;
+        margin: 10px 0;
+        font-size: 30px;
+    }
+    .header-entry-title{
+        font-size: 150px;
+        padding: 15px 30px;
+        margin: 10px 0;
+    }
+    .home .entry-title{
+        font-size: 30px;
+    }
     .header-container{
         position: absolute;
-        margin: 10%;
+        margin: 52px 10%;
         z-index: 1;
         display: block;
         width: auto;
         height: auto;
     }
 
+    .home .header-container{
+        margin: 10%;
+    }
+
  /*
  * Site Header End
  */
 
+ /*
+ Page layout
+ */
+
+ p, .hentry .entry-content figure.wp-block-image.page_separator{
+     max-width: $screen-medium;
+ }
+ p{
+     margin: 0 auto 1.41575em;
+ }
+ .hentry .entry-content figure.wp-block-image.page_separator{
+     margin: 0 auto;
+ }
+
+
+h2, .entry-content figure.wp-block-image.page_separator{
+    padding-top: 100px;
+}
+h2{
+    padding-bottom: 1em;
+}
+.woocommerce-page h2{
+    padding-top: 0;
+    padding-bottom: 0;
+}
    /*
  * Product Page Start
  */
 
+ .single-product div.product form.cart {
+    padding: 1em; 
+    margin: 1em;
+    border: 1px solid $grey;
+    border-radius: 10px;
+}
  .storefront-full-width-content.single-product div.product .summary{
     display: flex;
     flex-direction: row-reverse;
     width: 100%;
+    float: none;
   }
-  
+  .entry-wrapper-container{
+      background-color: $white;
+      margin-top: 1em;
+  }
   .entry-wrapper-container, .booking-form-container{
    width: 50%;
    padding-left: 1em;
+  }
+  .wc-bookings-date-picker{
+      padding-top: 0;
   }
 
   
@@ -680,48 +1222,8 @@ $screen-xl: 1400px;
   .single-product div.product p.price{
       margin: 1em 0;
   }
-  .woocommerce-tabs{
-      padding: 0;
-  }
-  .woocommerce-tabs ul.tabs li{
-      border-bottom: none;
-      padding: 1em 1em .5em 1em;
-  }
-  .woocommerce-tabs ul.tabs li a{
-      padding: 0;
-      color: $grey;
-  }
 
-.woocommerce-tabs ul.tabs li.active{
-    background-color: $white;
-    border-top: 2px solid $blue;
-}
 
-.woocommerce-Tabs-panel{
-    background-color: $white;
-    padding: .5em 1em 1em 1em;
-}
-  .woocommerce-tabs ul.tabs{
-      border-top: none;
-      margin-bottom: 0;
-  }
-  
-
-.storefront-full-width-content .woocommerce-tabs .panel{
-    width: 100%;
-}
-
-.storefront-full-width-content .woocommerce-tabs ul.tabs{
-    width: 100%;
-    display: flex;
-}
-
-.woocommerce-tabs ul.tabs li::after{
-    display: none;
-}
-#review_form_wrapper{
-    display: none;
-}
 .storefront-breadcrumb{
     display: none;
 }
@@ -729,13 +1231,49 @@ $screen-xl: 1400px;
     background-color: transparent;
 }
 
-.storefront-full-width-content.single-product #reviews .commentlist li .comment_container .comment-text{
-    width: 100%;
+
+#wc-bookings-booking-form .wc-bookings-date-picker .ui-datepicker .ui-datepicker-prev, #wc-bookings-booking-form .wc-bookings-date-picker .ui-datepicker .ui-datepicker-next{
+    background-color: transparent;
+}
+#wc-bookings-booking-form .wc-bookings-date-picker .ui-datepicker .ui-datepicker-prev{
+    border-radius: 0 0 5px 0;  
+} 
+#wc-bookings-booking-form .wc-bookings-date-picker .ui-datepicker .ui-datepicker-next{
+    border-radius: 0 0 0 5px;
+}
+.wc-bookings-booking-form .form-field{
+    margin: 1em 0;
+}
+
+.ui-datepicker .ui-datepicker-next{
+
+}
+.ui-datepicker .ui-datepicker-prev{
+
+}
+.wc-bookings-date-picker .ui-icon-circle-triangle-e, .wc-bookings-date-picker .ui-icon-circle-triangle-w{
+    background-image: url("images/ui-icons_222222_256x240.png");
+}
+
+.single-product div.product .product_meta{
+    border-top: none;
+}
+
+.storefront-full-width-content .site-main ul.products.columns-2 li.product:nth-child(even){
+    margin-right: 0!important;
 }
     /*
    * Product Page End
    */
+   .author .post-link-container, .blog .post-link-container{
+       width: 49.5%;
+   }
 
+   #wc-bookings-booking-form .wc-bookings-date-picker .ui-datepicker td.ui-datepicker-current-day::before {
+    border-top: 30px solid $orange;
+    border-left: 30px solid transparent;
+
+}
     
 }
 @media only screen and (min-width: $screen-large) {
@@ -743,6 +1281,12 @@ $screen-xl: 1400px;
         font-size: 130px;
     }
     .entry-title{
+        font-size: 30px;
+    }
+    .header-entry-title{
+        font-size: 200px;
+    }
+    .home .entry-title{
         font-size: 35px;
     }
     .entry-wrapper-container{
@@ -753,11 +1297,36 @@ $screen-xl: 1400px;
     }
 }
 @media only screen and (min-width: $screen-xl) {
+    .entry-content{
+        padding: 0 1em;
+    }
+    .site-main{
+        margin: 0;
+    }
     .header-site-title{
         font-size: 200px;
     }
     .entry-title{
+        font-size: 30px;
+    }
+    .header-entry-title{
+        font-size: 200px;
+    }
+    .home .entry-title{
         font-size: 40px;
+    }
+
+    .wc-bookings-date-picker{
+        padding: 0;
+    }
+    .wc-bookings-booking-form .form-field{
+        margin: 1em 0;
+    }
+    #wc-bookings-booking-form .wc-bookings-booking-cost{
+        margin: 0!important;
+    }
+    .wc-bookings-booking-form-button{
+        margin-left: 0;
     }
 }
 

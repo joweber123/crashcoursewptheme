@@ -14,10 +14,17 @@
 /**
  * Dequeue the Storefront Parent theme core CSS
  */
+
 function sf_child_theme_dequeue_style() {
     wp_dequeue_style( 'storefront-style' );
     wp_dequeue_style( 'storefront-woocommerce-style' );
 }
+
+function show_post($path) {
+    $post = get_page_by_path($path);
+    $content = apply_filters('the_content', $post->post_content);
+    return $content;
+  }
 
 /**
  * Note: DO NOT! alter or remove the code above this text and only add your custom PHP functions below this text.
@@ -28,22 +35,34 @@ function sf_child_theme_dequeue_style() {
  */
 
 function storefront_page_header() {
-    if ( is_front_page() && is_page_template( 'template-fullwidth.php' ) ) {
+    if ( is_front_page() ) {
+        ?>
+        <header class="entry-header">
+            
+            <div class="header-container">
+                <span class="header-site-title">Crash</br>Course</br>Travel</span>
+                <?php the_title( '<h1 class="entry-title">', '</h1>' );?>
+            </div>
+            <div class=header-color-container></div>
+            <?php storefront_post_thumbnail( 'full' );?>
+
+        </header><!-- .entry-header -->
+        <?php
+    } elseif( is_cart() || is_checkout()){
         return;
+    } else{
+        ?>
+        <header class="entry-header">
+            
+            <div class="header-container">
+                <?php the_title( '<h1 class="header-entry-title">', '</h1>' );?>
+            </div>
+            <div class=header-color-container></div>
+            <?php storefront_post_thumbnail( 'full' );?>
+
+        </header><!-- .entry-header -->
+        <?php
     }
-
-    ?>
-    <header class="entry-header">
-        
-        <div class="header-container">
-            <span class="header-site-title">Crash</br>Course</br>Travel</span>
-            <?php the_title( '<h1 class="entry-title">', '</h1>' );?>
-        </div>
-        <div class=header-color-container></div>
-        <?php storefront_post_thumbnail( 'full' );?>
-
-    </header><!-- .entry-header -->
-    <?php
 }
 
 /**
@@ -175,8 +194,7 @@ function display_header_product_page(){
 ?>
     <header class="entry-header">
 	<div class="header-container">
-		<span class="header-site-title">Crash</br>Course</br>Travel</span>
-		<?php the_title( '<h1 class="entry-title">', '</h1>' );?>
+		<?php the_title( '<h1 class="header-entry-title">', '</h1>' );?>
 	</div>
 	<div class=header-color-container></div>
 	<?php storefront_post_thumbnail( 'full' );?>
@@ -224,9 +242,11 @@ add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_p
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_excerpt', 20 );
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_sharing', 50 );
+remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
 
 add_action( 'woocommerce_after_single_product_summary', 'woocommerce_template_single_excerpt', 20 );
-add_action( 'woocommerce_after_single_product_summary', 'woocommerce_template_single_meta', 40 );
+add_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 30 );
+
 add_action( 'woocommerce_after_single_product_summary', 'woocommerce_template_single_sharing', 50 );
 // =============================================================================
 
@@ -248,6 +268,8 @@ function woo_new_product_tab( $tabs ) {
 function woo_new_product_tab_content() {
     global $post;
     global $authordata;
+    $profile = get_the_author_meta( 'first_name', $post->post_author );
+    
     $link = sprintf(
         ' <a href="%1$s" title="%2$s" rel="author">Read More...</a>',
         esc_url( get_author_posts_url( $authordata->ID, $authordata->user_nicename ) ),
@@ -256,12 +278,12 @@ function woo_new_product_tab_content() {
         get_the_author()
     );
  
-    $profile = get_the_author_meta( 'crash_course_profile', $post->post_author );
+    
     
     // The new tab content
     echo '<h2> Your Teacher: ';
-    echo the_author_meta('first_name').'</h2>';
-    echo '<p> '. wp_trim_words($profile, 50).' </p>';
+    echo $profile.'</h2>';
+    echo '<p> '. wp_trim_words(show_post($profile), 50).' </p>';
     echo $link;
   }
 
@@ -288,8 +310,7 @@ function woocommerce_category_image() {
             echo '
             <header class="entry-header">
                 <div class="header-container">
-                    <span class="header-site-title">Crash</br>Course</br>Travel</span>
-                    <h1 class="entry-title" >' . $title . '</h1>
+                    <h1 class="header-entry-title" >' . $title . '</h1>
                 </div>
                 <div class=header-color-container></div>
                 <img class="wp-post-image" src="' . $image . '" alt="' . $cat->name . '" />
@@ -388,3 +409,147 @@ add_action( 'edit_user_profile', add_custom_userprofile_fields );
 add_action( 'personal_options_update', 'save_custom_userprofile_fields' );
 add_action( 'edit_user_profile_update', 'save_custom_userprofile_fields' );
 // =============================================================================
+
+
+
+
+	function storefront_post_content() {
+		?>
+		<div class="entry-content">
+		<?php
+    
+		if ( is_single() ) {
+					/**
+		 * Function controlling single post content
+		 * Functions hooked in to storefront_post_content_before action.
+		 * @hooked storefront_post_thumbnail - 10
+		 */
+        
+        
+		the_content(
+			sprintf(
+				/* translators: %s: post title */
+				__( 'Continue reading %s', 'storefront' ),
+				'<span class="screen-reader-text">' . get_the_title() . '</span>'
+			)
+		);
+
+
+		do_action( 'storefront_post_content_after' );
+
+		wp_link_pages(
+			array(
+				'before' => '<div class="page-links">' . __( 'Pages:', 'storefront' ),
+				'after'  => '</div>',
+			)
+        );
+
+		} else {
+		/**
+		 * Function controlling post blurbs shown in grids
+		 * Functions hooked in to storefront_post_content_before action.
+		 * @hooked storefront_post_thumbnail - 10
+		 */
+		do_action( 'storefront_post_content_before' );
+
+		the_excerpt(
+			sprintf(
+				/* translators: %s: post title */
+				__( 'Continue reading %s', 'storefront' ),
+				'<span class="screen-reader-text">' . get_the_title() . '</span>'
+			)
+		);
+
+		do_action( 'storefront_post_content_after' );
+
+		wp_link_pages(
+			array(
+				'before' => '<div class="page-links">' . __( 'Pages:', 'storefront' ),
+				'after'  => '</div>',
+			)
+        );
+    }
+		?>
+		</div><!-- .entry-content -->
+		<?php
+    }
+
+
+
+	function storefront_post_header() {
+		?>
+		<header class="entry-header">
+		<?php
+
+		/**
+		 * Functions hooked in to storefront_post_header_before action.
+		 *
+		 * @hooked storefront_post_meta - 10
+		 */
+		do_action( 'storefront_post_header_before' );
+
+		if ( is_single() ) {
+			the_title( '<h1 class="entry-title">', '</h1>' );
+		} else {
+			the_title( '<h2 class="alpha entry-title">', '</h2>' );
+		}
+
+		do_action( 'storefront_post_header_after' );
+		?>
+		</header><!-- .entry-header -->
+		<?php
+    }
+  
+    
+
+function remove_storefront_post_meta() {
+    if ( is_single() ) {
+        return;
+    } else {
+    remove_action( 'storefront_post_header_before', 'storefront_post_meta', 10 );
+    remove_action( 'storefront_loop_post', 'storefront_post_taxonomy', 40 );
+    }
+}
+add_action( 'after_setup_theme', 'remove_storefront_post_meta', 0);
+
+
+///////////////////////Single Post/////////////////////////////
+//found in storefront-template-functions.php
+//found in store-front-template-hooks.php
+/*
+add_action( 'storefront_loop_post', 'storefront_post_header', 10 );
+add_action( 'storefront_loop_post', 'storefront_post_content', 30 );
+add_action( 'storefront_loop_post', 'storefront_post_taxonomy', 40 );
+add_action( 'storefront_loop_after', 'storefront_paging_nav', 10 );
+add_action( 'storefront_single_post', 'storefront_post_header', 10 );
+add_action( 'storefront_single_post', 'storefront_post_content', 30 );
+add_action( 'storefront_single_post_bottom', 'storefront_edit_post_link', 5 );
+add_action( 'storefront_single_post_bottom', 'storefront_post_taxonomy', 5 );
+add_action( 'storefront_single_post_bottom', 'storefront_post_nav', 10 );
+add_action( 'storefront_single_post_bottom', 'storefront_display_comments', 20 );
+add_action( 'storefront_post_header_before', 'storefront_post_meta', 10 );
+add_action( 'storefront_post_content_before', 'storefront_post_thumbnail', 10 );
+*/
+
+
+add_action( 'storefront_single_post', 'storefront_post_thumbnail', 05 );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
