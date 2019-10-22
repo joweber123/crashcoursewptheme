@@ -183,7 +183,7 @@ function storefront_handheld_footer_bar() {
 		<?php
 	}
 
-
+    
 //woocommerce: Remove Original Product Image function
   remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_images', 20 );
 // =============================================================================
@@ -216,6 +216,8 @@ function product_entry_wrapper_end(){
     </div>
     <?php
 }
+
+
 
 add_action( 'woocommerce_single_product_summary', 'product_entry_wrapper_start', 2 );
 add_action( 'woocommerce_single_product_summary', 'product_entry_wrapper_end', 90 );
@@ -252,16 +254,37 @@ add_action( 'woocommerce_after_single_product_summary', 'woocommerce_template_si
 
 
 
+
+//WooCommerce: Add sample map to Maps Category
+add_action( 'woocommerce_before_add_to_cart_button', 'woocomerce_single_category_slug', 40 );
+
+function woocomerce_single_category_slug() {
+    $woo_basic_map = get_field('basic_map_embed');
+    if ( has_term( 'maps', 'product_cat' ) ) {
+        echo $woo_basic_map;
+    } 
+    }
+
+
+
+// =============================================================================
+
 // WooCommerce: Add Teacher tab to Product page
 add_filter( 'woocommerce_product_tabs', 'woo_new_product_tab' );
 function woo_new_product_tab( $tabs ) {
 // Adds the new tab
+global $post;
+$product = wc_get_product();
+$product_type = $product->get_type();
+if ( $product_type == 'booking' ) {
     $tabs['desc_tab'] = array(
         'title'     => __( 'Teacher', 'woocommerce' ),
         'priority'  => 50,
         'callback'  => 'woo_new_product_tab_content'
     );
+}
     return $tabs;
+
 }
 
 // WooCommerce: Display Teach Tab Information
@@ -269,6 +292,8 @@ function woo_new_product_tab_content() {
     global $post;
     global $authordata;
     $profile = get_the_author_meta( 'first_name', $post->post_author );
+    $product = wc_get_product();
+    $product_type = $product->get_type();
     
     $link = sprintf(
         ' <a href="%1$s" title="%2$s" rel="author">Read More...</a>',
@@ -281,10 +306,12 @@ function woo_new_product_tab_content() {
     
     
     // The new tab content
+    if ( $product_type == 'booking' ) {
     echo '<h2> Your Teacher: ';
     echo $profile.'</h2>';
     echo '<p> '. wp_trim_words(show_post($profile), 50).' </p>';
     echo $link;
+    }
   }
 
 //remove gravatar for review
