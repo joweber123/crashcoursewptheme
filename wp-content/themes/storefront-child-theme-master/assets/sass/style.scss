@@ -364,6 +364,10 @@ ul.menu li a{
     object-fit: cover;
     width: 100%;
 }
+.teacher .wp-post-image{
+    object-position: top;
+}
+
 .home .wp-post-image{
     height: auto;
 }
@@ -819,7 +823,12 @@ ul.products::before, ul.products::after,
 .cart-collaterals h2{
     padding: 1em 0 0 1em;
 }
-
+table.cart td.actions input{
+    border: 1px solid #6d6d6d;
+}
+.coupon .button{
+    font-weight: 500;
+}
 ///////////////  Checkout /////////////// 
 
 form.woocommerce-checkout{
@@ -845,6 +854,17 @@ table:not(.has-background) th{
 }
 #order_review_heading{
     padding: 1em 0 0 1em;
+}
+.select2-container .select2-selection--single{
+    height: 50px;
+    border: 2px solid #6d6d6d;
+    border-radius: 10px;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered{
+    line-height: 42px;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow{
+    height: 42px;
 }
 
 /////////////// Woo Single Product Page /////////////// 
@@ -1200,6 +1220,18 @@ video#author-page-video{
     color: $white;
 }
 
+div.wpcf7-response-output{
+    max-width: 608px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 1em;
+}
+
+div.wpcf7-mail-sent-ok{
+    background-color: $green;
+    color: $white;
+}
+
  /////////////// company profile columns  /////////////// 
 .table-style-paragraph-column{
     margin-bottom: 0
@@ -1257,6 +1289,85 @@ video#author-page-video{
 }
 .woo_survey_link{
     width: 100%;
+}
+ /////////////// Cart ///////////////
+ 
+.variation-Instructor{
+    display: none;
+}
+
+ /////////////// Checkout Coupon Field ///////////////
+.woocommerce-form-coupon-toggle .woocommerce-info {
+    background-color: $verylightgrey;
+    color: #333;
+    margin-bottom: 1em;
+}
+.woocommerce-info .showcoupon {
+    color: $blue;
+    text-decoration: none!important;
+}
+.woocommerce-info .showcoupon:hover {
+    color:  darken($blue, 10%);
+    text-decoration: none!important;
+}
+.woocommerce-form-coupon-toggle {
+    max-width: 66.4989378333em;
+    margin: 0 auto;
+}
+#customer_details.col2-set .col-2 {
+    margin: 0;
+}
+#customer_details.col2-set .col-1 {
+    margin: 0;
+}
+.product-name,.product-total {
+    padding: 1em;
+}
+.woocommerce-form-coupon {
+    padding: 0 1em;
+    max-width: 66.4989378333em;
+    margin: 0 auto;
+}
+#customer_details {
+    padding-bottom: 0;
+}
+.woocommerce-form-coupon p {
+    margin: 0 0 1em;
+}
+.woocommerce-form-coupon .form-row-last button {
+    font-weight: 500;
+}
+/////////////// WooCommerce Default Messages ////////////////
+.woocommerce-checkout .woocommerce-error{
+    max-width: 66.4989378333em;
+    margin: 1em auto;
+}
+
+.woocommerce-error {
+    background-color: $red;
+}
+.woocommerce-info{
+    background-color: $lightgrey;
+    color: #333;
+}
+
+#payment .payment_methods li input[type="radio"]:first-child:checked + label::before{
+    color: #009FF2;
+}
+
+.entry-content .cart-empty.woocommerce-info{
+    margin-right: -1em;
+    margin-left: -1em;
+    width: calc(100% + 2em);
+    max-width: calc(100% + 2em);
+}
+
+.woocommerce-info a{
+    color: #009FF2;
+}
+
+.woocommerce-MyAccount-content .myaccount_content{
+    padding-top: 1em;
 }
 
 //////////////////////////////  Media Queries ////////////////////////////// 
@@ -1327,9 +1438,9 @@ $screen-xl: 1600px;
         margin-right: 0;
         margin-left: 0;
     }
-    .site-main{
-        margin: 0 1em 0 0;
-    }
+    // .site-main{
+    //     margin: 0 1em 0 0;
+    // }
     .woocommerce-account .site-main{
         margin: 0;
     }
@@ -1642,6 +1753,21 @@ $screen-xl: 1600px;
     }
     .post-595 .header-entry-title, .page-id-3 .header-entry-title, .page-id-604 .header-entry-title{
         margin: 40px 60px;
+    }
+    .woocommerce-cart-form{
+        margin-top: 60px;
+    }
+//////////////// Checkout ///////////////
+    .woocommerce-form-coupon .form-row-first {
+        width: 25%;
+        float: none;
+        display: inline-block;
+    }
+    .woocommerce-form-coupon .form-row-last {
+        width: 25%;
+        float: none;
+        display: inline-block;
+        margin-left: 1em;
     }
 }
 

@@ -35,10 +35,13 @@ function show_post($path) {
  */
 
 function storefront_page_header() {
+    global $post;
+    $teacher_parent_page = get_page_by_title( 'teachers' );
+    $teacher_parent_page_ID = $teacher_parent_page->ID;
     if ( is_front_page() ) {
         ?>
         <header class="entry-header">
-            
+
             <div class="header-container">
                 <img src="./wp-content/uploads/2020/01/crash_course_travel_title_text.svg" alt="Crash Course Travel">
                 <?php the_title( '<h1 class="entry-title">', '</h1>' );?>
@@ -50,7 +53,20 @@ function storefront_page_header() {
         <?php
     } elseif( is_cart() || is_checkout()){
         return;
-    } else{
+    }elseif($post->post_parent==$teacher_parent_page_ID) {
+        ?>
+        <header class="entry-header teacher">
+            
+            <div class="header-container">
+                <?php the_title( '<h1 class="header-entry-title">', '</h1>' );?>
+            </div>
+            <div class=header-color-container></div>
+            <?php storefront_post_thumbnail( 'full' );?>
+
+        </header><!-- .entry-header -->
+        <?php
+    } 
+    else{
         ?>
         <header class="entry-header">
             
@@ -316,6 +332,13 @@ function woo_new_product_tab_content() {
     }
 }
 
+// Remove the additional information tab
+function woo_remove_product_tabs( $tabs ) {
+    unset( $tabs['additional_information'] );
+    return $tabs;
+}
+add_filter( 'woocommerce_product_tabs', 'woo_remove_product_tabs', 98 );
+
 //remove gravatar for review
 remove_action( 'woocommerce_review_before', 'woocommerce_review_display_gravatar', 10 );
 
@@ -534,7 +557,7 @@ add_filter('woocommerce_thankyou_order_received_text', 'isa_order_received_text'
 
 
 
-// Changes the redirect URL for the Return To Shop button in the cart.
+// Changes the text and redirect URL for the Return To Shop button in the cart.
 
 add_filter( 'gettext', 'change_woocommerce_return_to_shop_text', 20, 3 );
 function change_woocommerce_return_to_shop_text( $translated_text, $text, $domain ) {
@@ -553,10 +576,67 @@ function wc_empty_cart_redirect_url() {
 }
 add_filter( 'woocommerce_return_to_shop_redirect', 'wc_empty_cart_redirect_url' );
 
+//remove add to cart message on cart page
+add_filter( 'wc_add_to_cart_message_html', '__return_false' );
+
+// remove coupon button from Checkout page
+
+add_filter( 'woocommerce_enable_order_notes_field', '__return_false' );
 
 
+//Remove Orders, DOwnloads, Addresses from /my-account page https://businessbloomer.com/woocommerce-hide-rename-account-tab/
+ 
+add_filter( 'woocommerce_account_menu_items', 'crashcourse_remove_address_my_account', 999 );
+ 
+function crashcourse_remove_address_my_account( $items ) {
+unset($items['orders']);
+unset($items['edit-address']);
+unset($items['downloads']);
+return $items;
+}
+ 
+add_filter( 'woocommerce_account_menu_items', 'crashcourse_rename_address_my_account', 999 );
+ 
+function crashcourse_rename_address_my_account( $items ) {
+$items['bookings'] = 'Travel Sessions';
+return $items;
+}
+//Change text Bookings to Travel Sessions in /my-account page  https://businessbloomer.com/translate-single-string-woocommerce-wordpress/
 
+add_filter( 'gettext', 'crashcourse_translate_woocommerce_strings', 999, 3 );
+  
+function crashcourse_translate_woocommerce_strings( $translated, $untranslated) {
+   if ( ! is_admin() && is_account_page() ) {
+        switch ( $translated) {
+            case 'Bookings' :
+                $translated = 'Travel Sessions';
+                break;
+            case 'Upcoming Bookings' :
+                $translated = 'Upcoming Travel Sessions';
+                break;
+            case 'Past Bookings' :
+                $translated = 'Past Travel Sessions';
+                break;
+        }
+   }   
+   return $translated;
+}
 
+//Remove Order again button on my account
+remove_action( 'woocommerce_order_details_after_order_table', 'woocommerce_order_again_button' );
 
+// Force required on WooCommerce Checkout fields
+add_filter( 'woocommerce_billing_fields', 'ts_require_wc_company_field');
+    function ts_require_wc_company_field( $fields ) {
+    $fields['billing_first_name']['required'] = true;
+    $fields['billing_last_name']['required'] = true;
+    $fields['billing_country']['required'] = true;
+    $fields['billing_postcode']['required'] = true;
+    return $fields;
+}
 
-    
+add_filter( 'woocommerce_default_address_fields', 'customise_postcode_fields' );
+function customise_postcode_fields( $address_fields ) {
+    $address_fields['postcode']['required'] = true;
+    return $address_fields;
+}
