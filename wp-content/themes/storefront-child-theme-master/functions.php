@@ -14,6 +14,7 @@
 /**
  * Dequeue the Storefront Parent theme core CSS
  */
+
 function sf_child_theme_dequeue_style() {
     wp_dequeue_style( 'storefront-style' );
     wp_dequeue_style( 'storefront-woocommerce-style' );
@@ -23,27 +24,61 @@ function sf_child_theme_dequeue_style() {
  * Note: DO NOT! alter or remove the code above this text and only add your custom PHP functions below this text.
  */
 
+function show_post($path) {
+    $post = get_page_by_path($path);
+    $content = apply_filters('the_content', $post->post_content);
+    return $content;
+  }
+
 /**
  * Overriding featured image 
  */
 
 function storefront_page_header() {
-    if ( is_front_page() && is_page_template( 'template-fullwidth.php' ) ) {
+    global $post;
+    $teacher_parent_page = get_page_by_title( 'teachers' );
+    $teacher_parent_page_ID = $teacher_parent_page->ID;
+    if ( is_front_page() ) {
+        ?>
+        <header class="entry-header">
+
+            <div class="header-container">
+                <img src="./wp-content/uploads/2020/01/crash_course_travel_title_text.svg" alt="Crash Course Travel">
+                <?php the_title( '<h1 class="entry-title">', '</h1>' );?>
+            </div>
+            <div class=header-color-container></div>
+            <?php storefront_post_thumbnail( 'full' );?>
+
+        </header><!-- .entry-header -->
+        <?php
+    } elseif( is_cart() || is_checkout()){
         return;
+    }elseif($post->post_parent==$teacher_parent_page_ID) {
+        ?>
+        <header class="entry-header teacher">
+            
+            <div class="header-container">
+                <?php the_title( '<h1 class="header-entry-title">', '</h1>' );?>
+            </div>
+            <div class=header-color-container></div>
+            <?php storefront_post_thumbnail( 'full' );?>
+
+        </header><!-- .entry-header -->
+        <?php
+    } 
+    else{
+        ?>
+        <header class="entry-header">
+            
+            <div class="header-container">
+                <?php the_title( '<h1 class="header-entry-title">', '</h1>' );?>
+            </div>
+            <div class=header-color-container></div>
+            <?php storefront_post_thumbnail( 'full' );?>
+
+        </header><!-- .entry-header -->
+        <?php
     }
-
-    ?>
-    <header class="entry-header">
-        
-        <div class="header-container">
-            <span class="header-site-title">Crash</br>Course</br>Travel</span>
-            <?php the_title( '<h1 class="entry-title">', '</h1>' );?>
-        </div>
-        <div class=header-color-container></div>
-        <?php storefront_post_thumbnail( 'full' );?>
-
-    </header><!-- .entry-header -->
-    <?php
 }
 
 /**
@@ -52,7 +87,8 @@ function storefront_page_header() {
 add_action( 'storefront_header', 'custom_storefront_header_content', 40 );
 	function custom_storefront_header_content() { 
         ?>
-        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400|Roboto+Slab:300,400&display=swap" rel="stylesheet"> 		
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400|Roboto+Slab:300,400&display=swap" rel="stylesheet"> 
+        <script src="https://kit.fontawesome.com/776eb7ceba.js" crossorigin="anonymous"></script>		
         <?php
     }
     
@@ -76,7 +112,7 @@ add_action( 'storefront_header', 'custom_storefront_header_content', 40 );
 
  /* Voiding storefront default header functions */
 
- function storefront_site_branding() {
+function storefront_site_branding() {
     return;
 }
 function storefront_product_search() {
@@ -95,7 +131,6 @@ function storefront_header_container_close() {
     return;
 }
 
-    
 
 function storefront_header_container() {
 
@@ -156,15 +191,15 @@ function storefront_handheld_footer_bar() {
 }
 
 
-	function storefront_credit() {
-		?>
-		<div class="site-info">
-			<?php echo esc_html( apply_filters( 'storefront_copyright_text', $content = '&copy; ' . get_bloginfo( 'name' ) . ' ' . date( 'Y' ) ) ); ?>
-		</div><!-- .site-info -->
-		<?php
-	}
+function storefront_credit() {
+    ?>
+    <div class="site-info">
+        <?php echo esc_html( apply_filters( 'storefront_copyright_text', $content = '&copy; ' . get_bloginfo( 'name' ) . ' ' . date( 'Y' ) ) ); ?>
+    </div><!-- .site-info -->
+    <?php
+}
 
-
+    
 //woocommerce: Remove Original Product Image function
   remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_images', 20 );
 // =============================================================================
@@ -175,8 +210,7 @@ function display_header_product_page(){
 ?>
     <header class="entry-header">
 	<div class="header-container">
-		<span class="header-site-title">Crash</br>Course</br>Travel</span>
-		<?php the_title( '<h1 class="entry-title">', '</h1>' );?>
+		<?php the_title( '<h1 class="header-entry-title">', '</h1>' );?>
 	</div>
 	<div class=header-color-container></div>
 	<?php storefront_post_thumbnail( 'full' );?>
@@ -198,6 +232,8 @@ function product_entry_wrapper_end(){
     </div>
     <?php
 }
+
+
 
 add_action( 'woocommerce_single_product_summary', 'product_entry_wrapper_start', 2 );
 add_action( 'woocommerce_single_product_summary', 'product_entry_wrapper_end', 90 );
@@ -224,46 +260,84 @@ add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_p
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_excerpt', 20 );
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_sharing', 50 );
+remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
 
 add_action( 'woocommerce_after_single_product_summary', 'woocommerce_template_single_excerpt', 20 );
-add_action( 'woocommerce_after_single_product_summary', 'woocommerce_template_single_meta', 40 );
+add_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 30 );
+
 add_action( 'woocommerce_after_single_product_summary', 'woocommerce_template_single_sharing', 50 );
 // =============================================================================
 
 
+//WooCommerce: Add sample map to Maps Category
+add_action( 'woocommerce_before_add_to_cart_button', 'woocomerce_single_category_slug', 40 );
+
+function woocomerce_single_category_slug() {
+    $woo_basic_map = get_field('basic_map_embed');
+    if ( has_term( 'maps', 'product_cat' ) ) {
+        echo $woo_basic_map;
+    } 
+    }
+
+// =============================================================================
 
 // WooCommerce: Add Teacher tab to Product page
 add_filter( 'woocommerce_product_tabs', 'woo_new_product_tab' );
 function woo_new_product_tab( $tabs ) {
 // Adds the new tab
+global $post;
+$product = wc_get_product();
+$product_type = $product->get_type();
+if ( $product_type == 'booking' ) {
     $tabs['desc_tab'] = array(
         'title'     => __( 'Teacher', 'woocommerce' ),
         'priority'  => 50,
         'callback'  => 'woo_new_product_tab_content'
     );
+}
     return $tabs;
+
 }
 
-// WooCommerce: Display Teach Tab Information
+// WooCommerce: Display Teacher Tab Information
 function woo_new_product_tab_content() {
-    global $post;
-    global $authordata;
-    $link = sprintf(
-        ' <a href="%1$s" title="%2$s" rel="author">Read More</a>',
-        esc_url( get_author_posts_url( $authordata->ID, $authordata->user_nicename ) ),
-        /* translators: %s: author's display name */
-        esc_attr( sprintf( __( 'Posts by %s' ), get_the_author() ) ),
-        get_the_author()
-    );
- 
-    $profile = get_the_author_meta( 'crash_course_profile', $post->post_author );
-    
-    // The new tab content
-    echo '<h3> Your Teacher: ';
-    echo the_author_meta('first_name').'</h3>';
-    echo '<p> '. wp_trim_words($profile, 50).' </p>';
-    echo $link;
-  }
+    $blogusers = get_users();
+    $course_name = get_field('course_name');
+
+    // Currently are grabbing all users that have the custom field set to be the same as the course name
+    // Linking the author name to the author page created manually
+    // Adding an excerpt manually to avoid inserting h2 into excerpt
+    foreach ( $blogusers as $user ) {
+
+        $author_id = $user->ID;
+        $author_data = get_user_meta( $author_id );
+        $author_firstname = get_user_meta( $author_id, 'first_name', true );
+        $woo_course_teacher_id = get_field('teacher_id', 'user_'. $author_id );
+        $teacher_parent_page_link = get_page_link( get_page_by_title( teachers )->ID );
+        $author_page_link = "{$teacher_parent_page_link}{$woo_course_teacher_id}";
+        $woo_course_teacher = get_field('teacher_courses', 'user_'. $author_id );
+        $teacher_avatar = '<img src="'. esc_url( get_avatar_url( $user->ID ) ) .' " />';
+        $session_teacher_excerpt = get_field('session_teacher_excerpt');
+        $teacher_page_id = url_to_postid( $author_page_link);
+        $teacher_excerpt = get_field('session_teacher_excerpt', $teacher_page_id);
+        
+        if( $woo_course_teacher && in_array($course_name, $woo_course_teacher) ) {
+            echo '<section class=teacher_short_description><a href="'.$author_page_link. '"><h4 class="teacher_name">'.$author_firstname .'</h4>' ;
+            echo $teacher_avatar;
+            echo '<p> '. $teacher_excerpt .' <span>read more</span></p>';
+            echo '</a></section>';
+            //Show post is a custom function defined above
+            //https://stackoverflow.com/questions/4090698/wordpress-include-content-of-one-page-in-another
+        }
+    }
+}
+
+// Remove the additional information tab
+function woo_remove_product_tabs( $tabs ) {
+    unset( $tabs['additional_information'] );
+    return $tabs;
+}
+add_filter( 'woocommerce_product_tabs', 'woo_remove_product_tabs', 98 );
 
 //remove gravatar for review
 remove_action( 'woocommerce_review_before', 'woocommerce_review_display_gravatar', 10 );
@@ -288,8 +362,7 @@ function woocommerce_category_image() {
             echo '
             <header class="entry-header">
                 <div class="header-container">
-                    <span class="header-site-title">Crash</br>Course</br>Travel</span>
-                    <h1 class="entry-title" >' . $title . '</h1>
+                    <h1 class="header-entry-title" >' . $title . '</h1>
                 </div>
                 <div class=header-color-container></div>
                 <img class="wp-post-image" src="' . $image . '" alt="' . $cat->name . '" />
@@ -343,48 +416,227 @@ function woocommerce_result_count(){
     return;
 }
 
-//Add author to WooCommerce Products
-add_action('init', 'function_to_add_author_woocommerce', 999 );
 
-function function_to_add_author_woocommerce() {
-  add_post_type_support( 'product', 'author' );
-}
 // =============================================================================
+function storefront_post_content() {
+    ?>
+    <div class="entry-content">
+    <?php
 
+    if ( is_single() ) {
+                /**
+     * Function controlling single post content
+     * Functions hooked in to storefront_post_content_before action.
+     * @hooked storefront_post_thumbnail - 10
+     */
+    
+    the_content(
+        sprintf(
+            /* translators: %s: post title */
+            __( 'Continue reading %s', 'storefront' ),
+            '<span class="screen-reader-text">' . get_the_title() . '</span>'
+        )
+    );
 
-// Add custom Author fields https://blog.webnersolutions.com/adding-custom-fields-to-user-profile-in-wordpress
+    do_action( 'storefront_post_content_after' );
 
-function add_custom_userprofile_fields( $user ) {    
-?>
-    <table class="form-table">
-        <tr>
-            <th><label for="crash_course_profile"><?php _e('Crash Course Teacher Profile', 'your_textdomain'); ?></label></th>
-            <td>
-                <input type="text" name="crash_course_profile" id="crash_course_profile" value="<?php echo esc_attr( get_the_author_meta( 'crash_course_profile', $user->ID ) ); ?>" class="regular-text" /><br />
-                <span class="description"><?php _e('Please enter your crash course teacher profile.', 'your_textdomain'); ?></span>
-            </td>
-        </tr>
-        <tr>
-            <th>
-            <label for="user_phone"><?php _e('Phone No.', 'your_textdomain'); ?></label></th>
-            <td>
-                <input type="text" name="user_phone" id="user_phone" value="<?php echo esc_attr( get_the_author_meta( 'user_phone', $user->ID ) ); ?>" class="regular-text" /><br />
-                <span class="description"><?php _e('Please enter your phone number.', 'your_textdomain'); ?></span>
-            </td>
-        </tr>
-    </table>
-<?php 
+    wp_link_pages(
+        array(
+            'before' => '<div class="page-links">' . __( 'Pages:', 'storefront' ),
+            'after'  => '</div>',
+        )
+    );
+
+    } else {
+    /**
+     * Function controlling post blurbs shown in grids
+     * Functions hooked in to storefront_post_content_before action.
+     * @hooked storefront_post_thumbnail - 10
+     */
+    do_action( 'storefront_post_content_before' );
+
+    the_excerpt(
+        sprintf(
+            /* translators: %s: post title */
+            __( 'Continue reading %s', 'storefront' ),
+            '<span class="screen-reader-text">' . get_the_title() . '</span>'
+        )
+    );
+
+    do_action( 'storefront_post_content_after' );
+
+    wp_link_pages(
+        array(
+            'before' => '<div class="page-links">' . __( 'Pages:', 'storefront' ),
+            'after'  => '</div>',
+        )
+    );
+}
+    ?>
+    </div><!-- .entry-content -->
+    <?php
 }
 
-function save_custom_userprofile_fields( $user_id ) {
-    if ( !current_user_can( 'edit_user', $user_id ) )
-    return FALSE;
-    update_usermeta( $user_id, 'crash_course_profile', $_POST['crash_course_profile'] );
-    update_usermeta( $user_id, 'user_phone', $_POST['user_phone'] );
+function storefront_post_header() {
+    ?>
+    <header class="entry-header">
+    <?php
+
+    /**
+     * Functions hooked in to storefront_post_header_before action.
+     *
+     * @hooked storefront_post_meta - 10
+     */
+    do_action( 'storefront_post_header_before' );
+
+    if ( is_single() ) {
+        the_title( '<h1 class="entry-title">', '</h1>' );
+    } else {
+        the_title( '<h2 class="alpha entry-title">', '</h2>' );
+    }
+
+    do_action( 'storefront_post_header_after' );
+    ?>
+    </header><!-- .entry-header -->
+    <?php
+}
+  
+    
+
+function remove_storefront_post_meta() {
+    if ( is_single() ) {
+        return;
+    } else {
+    remove_action( 'storefront_post_header_before', 'storefront_post_meta', 10 );
+    remove_action( 'storefront_loop_post', 'storefront_post_taxonomy', 40 );
+    }
+}
+add_action( 'after_setup_theme', 'remove_storefront_post_meta', 0);
+
+
+///////////////////////Single Post/////////////////////////////
+//found in storefront-template-functions.php
+//found in store-front-template-hooks.php
+/*
+add_action( 'storefront_loop_post', 'storefront_post_header', 10 );
+add_action( 'storefront_loop_post', 'storefront_post_content', 30 );
+add_action( 'storefront_loop_post', 'storefront_post_taxonomy', 40 );
+add_action( 'storefront_loop_after', 'storefront_paging_nav', 10 );
+add_action( 'storefront_single_post', 'storefront_post_header', 10 );
+add_action( 'storefront_single_post', 'storefront_post_content', 30 );
+add_action( 'storefront_single_post_bottom', 'storefront_edit_post_link', 5 );
+add_action( 'storefront_single_post_bottom', 'storefront_post_taxonomy', 5 );
+add_action( 'storefront_single_post_bottom', 'storefront_post_nav', 10 );
+add_action( 'storefront_single_post_bottom', 'storefront_display_comments', 20 );
+add_action( 'storefront_post_header_before', 'storefront_post_meta', 10 );
+add_action( 'storefront_post_content_before', 'storefront_post_thumbnail', 10 );
+*/
+
+
+add_action( 'storefront_single_post', 'storefront_post_thumbnail', 05 );
+
+//remove comments field from comment section blog
+
+add_filter('comment_form_default_fields', 'unset_url_field');
+function unset_url_field($fields){
+    if(isset($fields['url']))
+       unset($fields['url']);
+       return $fields;
 }
 
-add_action( 'show_user_profile', add_custom_userprofile_fields );
-add_action( 'edit_user_profile', add_custom_userprofile_fields );
-add_action( 'personal_options_update', 'save_custom_userprofile_fields' );
-add_action( 'edit_user_profile_update', 'save_custom_userprofile_fields' );
-// =============================================================================
+//Customize Thank You page WooCommerce
+function isa_order_received_text( $text, $order ) {
+    $title = 'Payment recieved. 🎉 Thank you so much!';
+    $form = 
+    '<p>We are super excited for the chance to share in your adventure. To make sure we are prepared to be the best teachers possible, please take the time to fill out the survey linked below to give us some necessary background information on your trip.</p>
+    <div class="wp-block-button aligncenter crashcourse_button"><a class="wp-block-button__link woo_survey_link" target="_blank" href="https://forms.gle/ujhfP3P9vyHFUWhB6">Travel planning survey click here!</a></div>
+    <p class="woo_confirmation_order_warning">We will also be sending this confirmation along to your email as well. Please <span>check your trash/spam filter</span> as sometimes our emails get stuck there if this is your first time ordering form Crash Course Travel.';
+    return $title . $form;
+}
+add_filter('woocommerce_thankyou_order_received_text', 'isa_order_received_text', 10, 2 );
+
+
+
+// Changes the text and redirect URL for the Return To Shop button in the cart.
+
+add_filter( 'gettext', 'change_woocommerce_return_to_shop_text', 20, 3 );
+function change_woocommerce_return_to_shop_text( $translated_text, $text, $domain ) {
+       switch ( $translated_text ) {
+                      case 'Return to shop' :
+   $translated_text = __( 'Back to Travel Courses', 'woocommerce' );
+   break;
+  }
+ return $translated_text; 
+
+}
+
+function wc_empty_cart_redirect_url() {
+    $category_link = get_term_link('courses', 'product_cat');
+    return $category_link;
+}
+add_filter( 'woocommerce_return_to_shop_redirect', 'wc_empty_cart_redirect_url' );
+
+//remove add to cart message on cart page
+add_filter( 'wc_add_to_cart_message_html', '__return_false' );
+
+// remove coupon button from Checkout page
+
+add_filter( 'woocommerce_enable_order_notes_field', '__return_false' );
+
+
+//Remove Orders, DOwnloads, Addresses from /my-account page https://businessbloomer.com/woocommerce-hide-rename-account-tab/
+ 
+add_filter( 'woocommerce_account_menu_items', 'crashcourse_remove_address_my_account', 999 );
+ 
+function crashcourse_remove_address_my_account( $items ) {
+unset($items['orders']);
+unset($items['edit-address']);
+unset($items['downloads']);
+return $items;
+}
+ 
+add_filter( 'woocommerce_account_menu_items', 'crashcourse_rename_address_my_account', 999 );
+ 
+function crashcourse_rename_address_my_account( $items ) {
+$items['bookings'] = 'Travel Sessions';
+return $items;
+}
+//Change text Bookings to Travel Sessions in /my-account page  https://businessbloomer.com/translate-single-string-woocommerce-wordpress/
+
+add_filter( 'gettext', 'crashcourse_translate_woocommerce_strings', 999, 3 );
+  
+function crashcourse_translate_woocommerce_strings( $translated, $untranslated) {
+   if ( ! is_admin() && is_account_page() ) {
+        switch ( $translated) {
+            case 'Bookings' :
+                $translated = 'Travel Sessions';
+                break;
+            case 'Upcoming Bookings' :
+                $translated = 'Upcoming Travel Sessions';
+                break;
+            case 'Past Bookings' :
+                $translated = 'Past Travel Sessions';
+                break;
+        }
+   }   
+   return $translated;
+}
+
+//Remove Order again button on my account
+remove_action( 'woocommerce_order_details_after_order_table', 'woocommerce_order_again_button' );
+
+// Force required on WooCommerce Checkout fields
+add_filter( 'woocommerce_billing_fields', 'ts_require_wc_company_field');
+    function ts_require_wc_company_field( $fields ) {
+    $fields['billing_first_name']['required'] = true;
+    $fields['billing_last_name']['required'] = true;
+    $fields['billing_country']['required'] = true;
+    $fields['billing_postcode']['required'] = true;
+    return $fields;
+}
+
+add_filter( 'woocommerce_default_address_fields', 'customise_postcode_fields' );
+function customise_postcode_fields( $address_fields ) {
+    $address_fields['postcode']['required'] = true;
+    return $address_fields;
+}
