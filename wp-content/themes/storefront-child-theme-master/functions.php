@@ -313,7 +313,7 @@ function woo_new_product_tab_content() {
         $author_data = get_user_meta( $author_id );
         $author_firstname = get_user_meta( $author_id, 'first_name', true );
         $woo_course_teacher_id = get_field('teacher_id', 'user_'. $author_id );
-        $teacher_parent_page_link = get_page_link( get_page_by_title( teachers )->ID );
+        $teacher_parent_page_link = get_page_link( get_page_by_title( 'teachers' )->ID );
         $author_page_link = "{$teacher_parent_page_link}{$woo_course_teacher_id}";
         $woo_course_teacher = get_field('teacher_courses', 'user_'. $author_id );
         $teacher_avatar = '<img src="'. esc_url( get_avatar_url( $user->ID ) ) .' " />';
